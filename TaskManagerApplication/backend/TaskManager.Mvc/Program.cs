@@ -1,7 +1,14 @@
+using TaskManager.Mvc.Data;
+using Microsoft.EntityFrameworkCore;
+using TaskManager.Mvc.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<TaskManagerDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("TaskManagerDb"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TaskManagerDb"))));
+builder.Services.AddScoped<ITaskRepository, EfRepository>();
 
 var app = builder.Build();
 
