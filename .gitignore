@@ -1,0 +1,18 @@
+# .NET build output (matches at any depth, e.g. backend/*/obj, backend/*/bin)
+**/bin/
+**/obj/
+*.dll
+*.pdb
+*.user
+
+# Visual Studio / VS Code
+.vs/
+*.suo
+
+# Node / frontend
+**/node_modules/
+npm-debug.log*
+
+# OS files
+Thumbs.db
+.DS_Store

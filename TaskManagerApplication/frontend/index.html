@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Application</title>
+</head>
+
+<body>
+
+    <h1>Todo Application</h1>
+
+    <div ng-controller="TodoController as vm">
+        <p>{{ vm.message }}</p>
+    </div>
+
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/todoController.js"></script>
+
+</body>
+
+</html>
