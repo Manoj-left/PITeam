@@ -1,0 +1,1 @@
+taskManagerApp.constant('API_BASE_URL', 'http://localhost:5221/api');

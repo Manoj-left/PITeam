@@ -1,0 +1,28 @@
+<div>
+    <h2>Tasks</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="task in vm.tasks">
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.priority }}</td>
+                <td>{{ task.dueDate | date:'short' }}</td>
+                <td>
+                    <a href="#!/tasks/{{ task.id }}/edit">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
