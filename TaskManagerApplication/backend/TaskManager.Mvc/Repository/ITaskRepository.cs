@@ -1,13 +1,13 @@
 namespace TaskManager.Mvc.Repository;
 using TaskManager.Mvc.Models;
 
+// this interface should have only persistence and no business logic.
+// repository always returns the full set of data and does not filter based on business logic.
 public interface ITaskRepository
 {
-    TaskItem GetTaskItembyId(int id);
-    IEnumerable<TaskItem> GetAllTaskItems();
-    void AddTaskItem(TaskItem taskItem);
-    void UpdateTaskItem(TaskItem taskItem);
-    void DeleteTaskItem(int id);
-    IEnumerable<TaskItem> GetTaskItemsByStatus(string status);
-    IEnumerable<TaskItem> GetTaskItemsByPriority(string priority);
+    Task<TaskItem?> GetByIdAsync(int id);
+    Task<IEnumerable<TaskItem>> GetAllAsync();
+    Task AddAsync(TaskItem taskItem);
+    Task UpdateAsync(TaskItem taskItem);
+    Task<bool> DeleteAsync(int id);
 }
