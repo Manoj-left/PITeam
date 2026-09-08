@@ -11,5 +11,7 @@ public class TaskManagerDbContext : DbContext
     {
     }
 
+    // TaskItem = Model class which we have in Models folder
+    // Tasks = Collection representing the Tasks table in DB
     public DbSet<TaskItem> Tasks { get; set; }
 }
