@@ -10,6 +10,9 @@ builder.Services.AddDbContext<TaskManagerDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("TaskManagerDb"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TaskManagerDb"))));
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -21,17 +24,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapStaticAssets();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapControllers();
 
 app.Run();
