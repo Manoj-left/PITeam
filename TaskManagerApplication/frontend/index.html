@@ -6,16 +6,29 @@
     <title>Task Manager Application</title>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/@microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script src="app/app.js"></script>
     <script src="app/config.js"></script>
     <script src="app/services/taskService.js"></script>
+    <script src="app/services/taskHubService.js"></script>
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/userService.js"></script>
     <script src="app/controllers/taskListController.js"></script>
     <script src="app/controllers/taskFormController.js"></script>
+    <script src="app/controllers/loginController.js"></script>
+    <script src="app/controllers/registerController.js"></script>
+    <script src="app/controllers/userListController.js"></script>
+    <script src="app/controllers/navController.js"></script>
 </head>
 <body ng-app="taskManagerApp">
-    <nav>
-        <a href="#!/tasks">Tasks</a>
-        <a href="#!/tasks/new">New Task</a>
+    <nav ng-controller="NavController as nav">
+        <a href="#!/tasks" ng-if="nav.currentUser">Tasks</a>
+        <a href="#!/tasks/new" ng-if="nav.currentUser">New Task</a>
+        <a href="#!/admin/users" ng-if="nav.isAdmin">Users</a>
+        <span ng-if="nav.currentUser"> | Logged in as {{ nav.currentUser.username }}</span>
+        <button ng-if="nav.currentUser" ng-click="nav.logout()">Logout</button>
+        <a href="#!/login" ng-if="!nav.currentUser">Login</a>
+        <a href="#!/register" ng-if="!nav.currentUser">Register</a>
     </nav>
     <div ng-view></div>
 </body>

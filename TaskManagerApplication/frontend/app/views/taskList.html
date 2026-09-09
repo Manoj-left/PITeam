@@ -1,5 +1,30 @@
 <div>
     <h2>Tasks</h2>
+
+    <div>
+        <label>Status:
+            <select ng-model="taskList.filters.status" ng-change="taskList.applyFilters()">
+                <option value="">All</option>
+                <option ng-repeat="s in taskList.statusOptions" value="{{ s }}">{{ s }}</option>
+            </select>
+        </label>
+        <label>Priority:
+            <select ng-model="taskList.filters.priority" ng-change="taskList.applyFilters()">
+                <option value="">All</option>
+                <option ng-repeat="p in taskList.priorityOptions" value="{{ p }}">{{ p }}</option>
+            </select>
+        </label>
+        <label>Sort by:
+            <select ng-model="taskList.sort.SortBy" ng-change="taskList.applyFilters()">
+                <option value="">None</option>
+                <option value="dueAt">Due Date</option>
+                <option value="priority">Priority</option>
+            </select>
+        </label>
+    </div>
+
+    <p ng-if="taskList.errorMessage">{{ taskList.errorMessage }}</p>
+
     <table>
         <thead>
             <tr>
@@ -12,14 +37,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="task in vm.tasks">
+            <tr ng-repeat="task in taskList.tasks">
                 <td>{{ task.title }}</td>
                 <td>{{ task.description }}</td>
-                <td>{{ task.status }}</td>
-                <td>{{ task.priority }}</td>
-                <td>{{ task.dueDate | date:'short' }}</td>
+                <td>{{ taskList.statusLabels[task.status] }}</td>
+                <td>{{ taskList.priorityLabels[task.priority] }}</td>
+                <td>{{ task.dueAt | date:'shortDate' }}</td>
                 <td>
                     <a href="#!/tasks/{{ task.id }}/edit">Edit</a>
+                    <button ng-click="taskList.deleteTask(task.id)">Delete</button>
                 </td>
             </tr>
         </tbody>

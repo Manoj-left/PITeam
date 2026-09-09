@@ -1,0 +1,24 @@
+<div>
+    <h2>Users</h2>
+
+    <label>Search:
+        <input type="text" ng-model="userList.search" ng-change="userList.runSearch()">
+    </label>
+
+    <p ng-if="userList.errorMessage">{{ userList.errorMessage }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in userList.users">
+                <td>{{ user.username }}</td>
+                <td>{{ userList.roleLabels[user.role] }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

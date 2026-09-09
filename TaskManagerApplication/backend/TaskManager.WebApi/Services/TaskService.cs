@@ -1,20 +1,28 @@
-namespace TaskManager.Mvc.Services;
-using TaskManager.Mvc.Repository;
-using TaskManager.Mvc.Models;
+namespace TaskManager.WebApi.Services;
+using TaskManager.WebApi.Repository;
+using TaskManager.WebApi.Models;
+using TaskManager.WebApi.Hubs;
 
 public class TaskService: ITaskService
 {
     private readonly ITaskRepository _taskRepository;
+    private readonly ITaskNotifier _taskNotifier;
 
-    public TaskService(ITaskRepository taskRepository)
+    public TaskService(ITaskRepository taskRepository, ITaskNotifier taskNotifier)
     {
         _taskRepository = taskRepository;
+        _taskNotifier = taskNotifier;
     }
 
     public async Task<IEnumerable<TaskItem>> GetTasksAsync(TaskQueryParameter queryParameter)
     {
         var tasks = await _taskRepository.GetAllAsync();
 // I can also add the DUeAt for filtering here
+        if (queryParameter.UserId.HasValue)
+        {
+            tasks = tasks.Where(t => t.UserId == queryParameter.UserId.Value);
+        }
+
         if (queryParameter.Status.HasValue)
         {
             tasks = tasks.Where(t => t.Status == queryParameter.Status.Value);
@@ -55,10 +63,12 @@ public class TaskService: ITaskService
             DueAt = dto.DueAt,
             Priority = dto.Priority,
             Status = TaskStatusType.NotStarted,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow),
+            UserId = dto.UserId
         };
 
         await _taskRepository.AddAsync(taskItem);
+        await _taskNotifier.TaskCreatedAsync(taskItem);
         return taskItem;
     }
 
@@ -77,11 +87,17 @@ public class TaskService: ITaskService
         existingTask.Priority = dto.Priority;
 
         await _taskRepository.UpdateAsync(existingTask);
+        await _taskNotifier.TaskUpdatedAsync(existingTask);
         return existingTask;
     }
 
     public async Task<bool> DeleteTaskAsync(int id)
     {
-        return await _taskRepository.DeleteAsync(id);
+        var deleted = await _taskRepository.DeleteAsync(id);
+        if (deleted)
+        {
+            await _taskNotifier.TaskDeletedAsync(id);
+        }
+        return deleted;
     }
 }

@@ -1,0 +1,17 @@
+<div>
+    <h2>Register</h2>
+
+    <p ng-if="register.errorMessage">{{ register.errorMessage }}</p>
+
+    <form ng-submit="register.submit()">
+        <label>Username:
+            <input type="text" ng-model="register.credentials.username" required>
+        </label>
+        <label>Password:
+            <input type="password" ng-model="register.credentials.password" required>
+        </label>
+        <button type="submit">Register</button>
+    </form>
+
+    <a href="#!/login">Already have an account? Login</a>
+</div>

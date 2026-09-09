@@ -1,0 +1,35 @@
+<div>
+    <h2>{{ taskForm.isEditMode ? 'Edit Task' : 'New Task' }}</h2>
+
+    <p ng-if="taskForm.errorMessage">{{ taskForm.errorMessage }}</p>
+
+    <form ng-submit="taskForm.save()">
+        <label>Title:
+            <input type="text" ng-model="taskForm.task.title" required>
+        </label>
+        <label>Description:
+            <textarea ng-model="taskForm.task.description"></textarea>
+        </label>
+        <label>Due Date:
+            <input type="date" ng-model="taskForm.task.dueAt" ng-model-options="{timezone: 'utc'}" required>
+        </label>
+        <label>Priority:
+            <select ng-model="taskForm.task.priority">
+                <option ng-value="0">Low</option>
+                <option ng-value="1">Medium</option>
+                <option ng-value="2">High</option>
+            </select>
+        </label>
+        <label ng-if="taskForm.isEditMode">Status:
+            <select ng-model="taskForm.task.status">
+                <option ng-value="0">Not Started</option>
+                <option ng-value="1">In Progress</option>
+                <option ng-value="2">Completed</option>
+                <option ng-value="3">On Hold</option>
+            </select>
+        </label>
+
+        <button type="submit">Save</button>
+        <a href="#!/tasks">Cancel</a>
+    </form>
+</div>

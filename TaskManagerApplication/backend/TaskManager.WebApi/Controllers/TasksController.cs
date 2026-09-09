@@ -1,6 +1,6 @@
-namespace TaskManager.Mvc.Controllers;
-using TaskManager.Mvc.Services; 
-using TaskManager.Mvc.Models; 
+namespace TaskManager.WebApi.Controllers;
+using TaskManager.WebApi.Services; 
+using TaskManager.WebApi.Models; 
 using Microsoft.AspNetCore.Mvc;
 // controllers represent a resource collection.
 [ApiController]
