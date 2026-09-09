@@ -1,9 +1,12 @@
-taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService', 'authService', function (taskService, taskHubService, authService) {
+taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService', 'authService', 'userService', '$location', function (taskService, taskHubService, authService, userService, $location) {
     var taskList = this;
     taskList.tasks = [];
     taskList.errorMessage = '';
     taskList.currentUser = authService.getCurrentUser();
     taskList.isAdmin = authService.isAdmin(taskList.currentUser);
+    taskList.userMap = {}; // userId -> username, admin-only, used to show each task's owner
+    // admins can drill into one user's tasks via a ?userId= query param (set from the Users page); omitted, they see everyone's
+    taskList.viewingUserId = taskList.isAdmin && $location.search().userId ? Number($location.search().userId) : null;
 
     // display labels, indexed to match the backend enum's int values
     taskList.statusLabels = ['Not Started', 'In Progress', 'Completed', 'On Hold'];
@@ -24,9 +27,11 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
 
     taskList.applyFilters = function () {
         var params = {};
-        // admins see every user's tasks; a regular user only ever sees their own
-        if (!taskList.isAdmin && taskList.currentUser) {
+        // a regular user only ever sees their own tasks; an admin sees everyone's unless drilled into one user
+        if (!taskList.isAdmin) {
             params.userId = taskList.currentUser.id;
+        } else if (taskList.viewingUserId) {
+            params.userId = taskList.viewingUserId;
         }
         if (taskList.filters.status) {
             params.status = taskList.filters.status;
@@ -41,7 +46,10 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
         }
 
         taskService.getByFilters(params).then(function (response) {
-            taskList.tasks = response.data;
+            // admin isn't a task-owning role, so the "everyone's tasks" aggregate excludes the admin's own leftover tasks
+            taskList.tasks = (taskList.isAdmin && !taskList.viewingUserId)
+                ? response.data.filter(function (task) { return task.userId !== taskList.currentUser.id; })
+                : response.data;
             taskList.errorMessage = '';
         }).catch(function (error) {
             taskList.tasks = [];
@@ -50,6 +58,15 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
     };
 
     taskList.applyFilters();
+
+    // admin-only: build a userId -> username lookup so the Owner column reads names instead of raw ids
+    if (taskList.isAdmin) {
+        userService.search('').then(function (response) {
+            response.data.forEach(function (user) {
+                taskList.userMap[user.id] = user.username;
+            });
+        });
+    }
 
     taskList.deleteTask = function (id) {
     taskService.delete(id).then(function () {

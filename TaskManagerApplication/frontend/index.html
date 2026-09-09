@@ -22,13 +22,13 @@
 </head>
 <body ng-app="taskManagerApp">
     <nav ng-controller="NavController as nav">
-        <a href="#!/tasks" ng-if="nav.currentUser">Tasks</a>
-        <a href="#!/tasks/new" ng-if="nav.currentUser">New Task</a>
-        <a href="#!/admin/users" ng-if="nav.isAdmin">Users</a>
+        <a href="#/tasks" ng-if="nav.currentUser">Tasks</a>
+        <a href="#/tasks/new" ng-if="nav.currentUser && !nav.isAdmin">New Task</a>
+        <a href="#/admin/users" ng-if="nav.isAdmin">Users</a>
         <span ng-if="nav.currentUser"> | Logged in as {{ nav.currentUser.username }}</span>
         <button ng-if="nav.currentUser" ng-click="nav.logout()">Logout</button>
-        <a href="#!/login" ng-if="!nav.currentUser">Login</a>
-        <a href="#!/register" ng-if="!nav.currentUser">Register</a>
+        <a href="#/login" ng-if="!nav.currentUser">Login</a>
+        <a href="#/register" ng-if="!nav.currentUser">Register</a>
     </nav>
     <div ng-view></div>
 </body>

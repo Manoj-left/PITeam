@@ -23,6 +23,11 @@
         </label>
     </div>
 
+    <p ng-if="taskList.isAdmin && taskList.viewingUserId">
+        Viewing tasks for <strong>{{ taskList.userMap[taskList.viewingUserId] }}</strong> —
+        <a href="#/tasks">show everyone's tasks</a>
+    </p>
+
     <p ng-if="taskList.errorMessage">{{ taskList.errorMessage }}</p>
 
     <table>
@@ -33,6 +38,7 @@
                 <th>Status</th>
                 <th>Priority</th>
                 <th>Due Date</th>
+                <th ng-if="taskList.isAdmin">Owner</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -43,8 +49,9 @@
                 <td>{{ taskList.statusLabels[task.status] }}</td>
                 <td>{{ taskList.priorityLabels[task.priority] }}</td>
                 <td>{{ task.dueAt | date:'shortDate' }}</td>
+                <td ng-if="taskList.isAdmin">{{ taskList.userMap[task.userId] || 'Unknown' }}</td>
                 <td>
-                    <a href="#!/tasks/{{ task.id }}/edit">Edit</a>
+                    <a href="#/tasks/{{ task.id }}/edit">Edit</a>
                     <button ng-click="taskList.deleteTask(task.id)">Delete</button>
                 </td>
             </tr>

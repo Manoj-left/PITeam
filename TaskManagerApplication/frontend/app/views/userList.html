@@ -1,6 +1,8 @@
 <div>
     <h2>Users</h2>
 
+    <p><a href="#/tasks">View All Tasks</a></p>
+
     <label>Search:
         <input type="text" ng-model="userList.search" ng-change="userList.runSearch()">
     </label>
@@ -12,12 +14,14 @@
             <tr>
                 <th>Username</th>
                 <th>Role</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="user in userList.users">
                 <td>{{ user.username }}</td>
                 <td>{{ userList.roleLabels[user.role] }}</td>
+                <td><a href="#/tasks?userId={{ user.id }}">View Their Tasks</a></td>
             </tr>
         </tbody>
     </table>

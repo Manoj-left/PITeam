@@ -1,7 +1,9 @@
 // this is like namespacing — depends on ngRoute for view switching without full page reloads
 var taskManagerApp = angular.module('taskManagerApp', ['ngRoute']);
 
-taskManagerApp.config(['$routeProvider', function ($routeProvider) {
+taskManagerApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    // '#/login' instead of the default '#!/login'; works with any static file server, no SPA-fallback needed
+    $locationProvider.hashPrefix('');
     $routeProvider
         .when('/login', {
             templateUrl: 'app/views/login.html',

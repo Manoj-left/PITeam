@@ -1,4 +1,6 @@
 // keeps the logged-in user in the browser's storage; no server session/token yet (that's a later phase)
+// sessionStorage (not localStorage) is scoped per browser tab, so logging in as different users in
+// different tabs doesn't overwrite each other's session when one of the tabs refreshes
 taskManagerApp.factory('authService', ['$http', '$window', 'API_BASE_URL', function ($http, $window, API_BASE_URL) {
     var apiUrl = API_BASE_URL + '/auth';
     var storageKey = 'taskManagerCurrentUser';
@@ -11,10 +13,10 @@ taskManagerApp.factory('authService', ['$http', '$window', 'API_BASE_URL', funct
             return $http.post(apiUrl + '/login', { username: username, password: password });
         },
         setCurrentUser: function (user) {
-            $window.localStorage.setItem(storageKey, angular.toJson(user));
+            $window.sessionStorage.setItem(storageKey, angular.toJson(user));
         },
         getCurrentUser: function () {
-            var stored = $window.localStorage.getItem(storageKey);
+            var stored = $window.sessionStorage.getItem(storageKey);
             return stored ? angular.fromJson(stored) : null;
         },
         // Role is serialized as its backend enum int (0 = User, 1 = Admin), matching how Status/Priority are handled elsewhere
@@ -22,7 +24,7 @@ taskManagerApp.factory('authService', ['$http', '$window', 'API_BASE_URL', funct
             return !!user && user.role === 1;
         },
         logout: function () {
-            $window.localStorage.removeItem(storageKey);
+            $window.sessionStorage.removeItem(storageKey);
         }
     };
 }]);
