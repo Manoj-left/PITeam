@@ -5,7 +5,7 @@
     box-shadow: var(--shadow-sm);
     padding: 24px;
     max-width: 420px;
-    margin: 40px auto;
+    margin: 15px auto;
 }
 
 .form-group {
@@ -78,4 +78,42 @@
     font-family: inherit;
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
+}
+
+/* --- Auth pages (login / register) ------------------------------------ */
+.auth-page {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 24px;
+    flex-wrap: wrap;
+}
+
+.auth-hero {
+    max-width: 380px;
+    color: var(--color-text);
+}
+
+.auth-hero-title {
+    font-size: 32px;
+    margin: 0 0 12px;
+    color: var(--color-primary-dark);
+}
+
+.auth-hero-lead {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    margin: 0 0 20px;
+    line-height: 1.6;
+}
+
+
+.auth-card {
+    margin: 0;
+    width: 100%;
+    max-width: 480px;
+    padding: 36px 40px;
+    box-shadow: var(--shadow-md);
 }

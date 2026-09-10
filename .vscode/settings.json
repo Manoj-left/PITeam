@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "TaskManager.sln"
+    "dotnet.defaultSolution": "TaskManager.sln",
+    "liveServer.settings.root": "/TaskManagerApplication/frontend"
 }
