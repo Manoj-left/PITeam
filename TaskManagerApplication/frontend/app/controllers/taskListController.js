@@ -22,7 +22,8 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
 
     taskList.filters = {
         status: '',
-        priority: ''
+        priority: '',
+        search: ''
     };
 
     taskList.sort = {
@@ -42,6 +43,9 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
         }
         if (taskList.filters.priority) {
             params.priority = taskList.filters.priority;
+        }
+        if (taskList.filters.search) {
+            params.search = taskList.filters.search;
         }
         if (taskList.sort.SortBy) {
             params.sortBy = taskList.sort.SortBy;

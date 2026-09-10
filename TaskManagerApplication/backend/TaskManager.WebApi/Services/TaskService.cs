@@ -33,6 +33,14 @@ public class TaskService: ITaskService
             tasks = tasks.Where(t => t.Priority == queryParameter.Priority.Value);
         }
 
+        if (!string.IsNullOrWhiteSpace(queryParameter.Search))
+        {
+            var search = queryParameter.Search;
+            tasks = tasks.Where(t =>
+                t.Title.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                (t.Description != null && t.Description.Contains(search, StringComparison.OrdinalIgnoreCase)));
+        }
+
         tasks = queryParameter.SortBy?.ToLowerInvariant() switch
         {
             // ties broken by due date (soonest first) so same-priority tasks still have a meaningful order

@@ -4,6 +4,9 @@
     </div>
 
     <div class="filter-bar">
+        <label class="filter-bar-label">Search
+            <input class="filter-bar-input" type="text" ng-model="taskList.filters.search" ng-change="taskList.applyFilters()" placeholder="Title or description">
+        </label>
         <label class="filter-bar-label">Status
             <select class="filter-bar-select" ng-model="taskList.filters.status" ng-change="taskList.applyFilters()">
                 <option value="">All</option>
@@ -16,7 +19,7 @@
                 <option ng-repeat="p in taskList.priorityOptions" value="{{ p }}">{{ p }}</option>
             </select>
         </label>
-        <label class="filter-bar-label">Sort by
+        <label class="filter-bar-label filter-bar-label-right">Sort by
             <select class="filter-bar-select" ng-model="taskList.sort.SortBy" ng-change="taskList.applyFilters()">
                 <option value="">None</option>
                 <option value="dueAt">Due Date</option>
