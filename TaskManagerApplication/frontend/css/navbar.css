@@ -1,30 +1,121 @@
-/* --- Navbar --------------------------------------------------------------- */
-.navbar {
+/* --- App shell: topbar + sidebar + main --------------------------------- */
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.topbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
     background: var(--color-primary);
     color: #ffffff;
-    padding: 14px 24px;
+    padding: 12px 24px;
     box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.navbar-link {
+.topbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     color: #ffffff;
-    opacity: 0.85;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: var(--radius);
-    transition: background-color 0.15s ease, opacity 0.15s ease;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
 }
 
-.navbar-link:hover {
-    opacity: 1;
+.topbar-brand:hover {
     text-decoration: none;
-    background-color: rgba(255, 255, 255, 0.15);
+    opacity: 0.9;
 }
 
-.navbar-user {
-    margin-left: auto;
+.topbar-brand-icon {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.topbar-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-user {
+    font-size: 14px;
     opacity: 0.9;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.app-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-link:hover {
+    background: rgba(108, 92, 231, 0.08);
+    text-decoration: none;
+}
+
+.sidebar-link-active {
+    background: rgba(108, 92, 231, 0.12);
+    color: var(--color-primary-dark);
+}
+
+.sidebar-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.app-main {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+.app-main-no-sidebar {
+    display: flex;
+    justify-content: center;
 }
