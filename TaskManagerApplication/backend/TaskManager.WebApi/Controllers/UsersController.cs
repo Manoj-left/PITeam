@@ -22,4 +22,15 @@ public class UsersController : ControllerBase
         var users = await _userService.SearchUsersAsync(search);
         return Ok(users);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteUser(int id)
+    {
+        var deleted = await _userService.DeleteUserAsync(id);
+        if (!deleted)
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
 }

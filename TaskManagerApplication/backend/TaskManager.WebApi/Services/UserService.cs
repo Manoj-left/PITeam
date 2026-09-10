@@ -31,4 +31,9 @@ public class UserService : IUserService
             Role = u.Role
         });
     }
+
+    public async Task<bool> DeleteUserAsync(int id)
+    {
+        return await _userRepository.DeleteAsync(id);
+    }
 }

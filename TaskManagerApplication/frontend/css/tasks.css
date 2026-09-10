@@ -1,0 +1,63 @@
+/* --- Task cards ---------------------------------------------------------- */
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.task-card {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border-left: 6px solid var(--color-border);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.task-card-priority-low { border-left-color: var(--color-priority-low); }
+.task-card-priority-medium { border-left-color: var(--color-priority-medium); }
+.task-card-priority-high { border-left-color: var(--color-priority-high); }
+
+.task-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.task-card-title {
+    font-size: 16px;
+    margin: 0;
+}
+
+.task-card-description {
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin: 0;
+}
+
+.task-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.task-card-owner {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.task-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 6px;
+}

@@ -1,0 +1,27 @@
+/* --- Tables (Users page) ------------------------------------------------ */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table th {
+    background: var(--color-bg);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+.table tbody tr:hover {
+    background: var(--color-bg);
+}

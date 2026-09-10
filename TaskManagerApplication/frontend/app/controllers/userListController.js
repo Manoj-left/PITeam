@@ -16,4 +16,12 @@ taskManagerApp.controller('UserListController', ['userService', function (userSe
     };
 
     userList.runSearch();
+
+    userList.deleteUser = function (id) {
+        userService.delete(id).then(function () {
+            userList.runSearch();
+        }).catch(function (error) {
+            userList.errorMessage = 'Error deleting user: ' + error.status;
+        });
+    };
 }]);

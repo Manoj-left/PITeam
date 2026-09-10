@@ -12,6 +12,10 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
     taskList.statusLabels = ['Not Started', 'In Progress', 'Completed', 'On Hold'];
     taskList.priorityLabels = ['Low', 'Medium', 'High'];
 
+    // CSS modifier suffixes for badge/card coloring, indexed the same way as the labels above
+    taskList.statusClasses = ['status-not-started', 'status-in-progress', 'status-completed', 'status-on-hold'];
+    taskList.priorityClasses = ['priority-low', 'priority-medium', 'priority-high'];
+
     // values sent to the API and this array must match the backend enum member names exactly
     taskList.statusOptions = ['NotStarted', 'InProgress', 'Completed', 'OnHold'];
     taskList.priorityOptions = ['Low', 'Medium', 'High'];

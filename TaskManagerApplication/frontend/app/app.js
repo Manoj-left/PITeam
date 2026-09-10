@@ -2,7 +2,7 @@
 var taskManagerApp = angular.module('taskManagerApp', ['ngRoute']);
 
 taskManagerApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    // '#/login' instead of the default '#!/login'; works with any static file server, no SPA-fallback needed
+    // '/login' instead of the default '#!/login'; works with any static file server, no SPA-fallback needed
     $locationProvider.hashPrefix('');
     $routeProvider
         .when('/login', {
@@ -58,7 +58,7 @@ taskManagerApp.run(['$rootScope', '$location', 'authService', function ($rootSco
         }
 
         if (next.requiresAdmin && !authService.isAdmin(currentUser)) {
-            $location.path('/tasks');
+            $location.path('#/tasks');
         }
     });
 }]);

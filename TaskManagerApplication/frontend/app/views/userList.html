@@ -1,15 +1,14 @@
-<div>
-    <h2>Users</h2>
+<div class="page">
+    
+    <div class="filter-bar">
+        <label class="filter-bar-label">Search
+            <input class="filter-bar-input" type="text" ng-model="userList.search" ng-change="userList.runSearch()">
+        </label>
+    </div>
 
-    <p><a href="#/tasks">View All Tasks</a></p>
+    <p class="alert alert-error" ng-if="userList.errorMessage">{{ userList.errorMessage }}</p>
 
-    <label>Search:
-        <input type="text" ng-model="userList.search" ng-change="userList.runSearch()">
-    </label>
-
-    <p ng-if="userList.errorMessage">{{ userList.errorMessage }}</p>
-
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Username</th>
@@ -21,7 +20,12 @@
             <tr ng-repeat="user in userList.users">
                 <td>{{ user.username }}</td>
                 <td>{{ userList.roleLabels[user.role] }}</td>
-                <td><a href="#/tasks?userId={{ user.id }}">View Their Tasks</a></td>
+                <td>
+                    <a href="#/tasks?userId={{ user.id }}">View Their Tasks</a>
+                    <button class="btn btn-small btn-danger btn-icon" ng-click="userList.deleteUser(user.id)" title="Delete" aria-label="Delete">
+                        <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 14H7L6 7zm3-3h6l1 2H8l1-2zM5 6h14v2H5V6z"/></svg>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>

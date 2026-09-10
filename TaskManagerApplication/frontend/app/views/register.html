@@ -1,17 +1,21 @@
-<div>
-    <h2>Register</h2>
+<div class="page">
+    <div class="form-card">
+        <h2>Register</h2>
 
-    <p ng-if="register.errorMessage">{{ register.errorMessage }}</p>
+        <p class="alert alert-error" ng-if="register.errorMessage">{{ register.errorMessage }}</p>
 
-    <form ng-submit="register.submit()">
-        <label>Username:
-            <input type="text" ng-model="register.credentials.username" required>
-        </label>
-        <label>Password:
-            <input type="password" ng-model="register.credentials.password" required>
-        </label>
-        <button type="submit">Register</button>
-    </form>
+        <form ng-submit="register.submit()">
+            <label class="form-group">Username
+                <input class="form-input" type="text" ng-model="register.credentials.username" required>
+            </label>
+            <label class="form-group">Password
+                <input class="form-input" type="password" ng-model="register.credentials.password" required>
+            </label>
+            <div class="form-actions">
+                <button class="btn" type="submit">Register</button>
+            </div>
+        </form>
 
-    <a href="#/login">Already have an account? Login</a>
+        <p class="form-footer"><a href="#/login">Already have an account? Login</a></p>
+    </div>
 </div>

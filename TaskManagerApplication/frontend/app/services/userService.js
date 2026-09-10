@@ -4,6 +4,9 @@ taskManagerApp.factory('userService', ['$http', 'API_BASE_URL', function ($http,
     return {
         search: function (search) {
             return $http.get(apiUrl, { params: { search: search } });
+        },
+        delete: function (id) {
+            return $http.delete(apiUrl + '/' + id);
         }
     };
 }]);

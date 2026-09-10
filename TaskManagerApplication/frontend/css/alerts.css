@@ -1,0 +1,34 @@
+/* --- Alerts & badges ---------------------------------------------------- */
+.alert {
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+}
+
+.alert-error {
+    background: #fde8e6;
+    color: var(--color-danger-dark);
+}
+
+.alert-info {
+    background: #eef0fd;
+    color: var(--color-primary-dark);
+}
+
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.badge-priority-low { background: var(--color-priority-low); }
+.badge-priority-medium { background: var(--color-priority-medium); }
+.badge-priority-high { background: var(--color-priority-high); color: #ffffff; }
+
+.badge-status-not-started { background: var(--color-status-not-started); }
+.badge-status-in-progress { background: var(--color-status-in-progress); color: #ffffff; }
+.badge-status-completed { background: var(--color-status-completed); color: #ffffff; }
+.badge-status-on-hold { background: var(--color-status-on-hold); }

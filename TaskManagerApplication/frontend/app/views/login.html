@@ -1,17 +1,21 @@
-<div>
-    <h2>Login</h2>
+<div class="page">
+    <div class="form-card">
+        <h2>Login</h2>
 
-    <p ng-if="login.errorMessage">{{ login.errorMessage }}</p>
+        <p class="alert alert-error" ng-if="login.errorMessage">{{ login.errorMessage }}</p>
 
-    <form ng-submit="login.submit()">
-        <label>Username:
-            <input type="text" ng-model="login.credentials.username" required>
-        </label>
-        <label>Password:
-            <input type="password" ng-model="login.credentials.password" required>
-        </label>
-        <button type="submit">Login</button>
-    </form>
+        <form ng-submit="login.submit()">
+            <label class="form-group">Username
+                <input class="form-input" type="text" ng-model="login.credentials.username" required>
+            </label>
+            <label class="form-group">Password
+                <input class="form-input" type="password" ng-model="login.credentials.password" required>
+            </label>
+            <div class="form-actions">
+                <button class="btn" type="submit">Login</button>
+            </div>
+        </form>
 
-    <a href="#/register">Need an account? Register</a>
+        <p class="form-footer"><a href="#/register">Need an account? Register</a></p>
+    </div>
 </div>
