@@ -72,6 +72,7 @@ public class TaskService: ITaskService
             Priority = dto.Priority,
             Status = TaskStatusType.NotStarted,
             CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow),
+            StatusChangedAt = DateTime.UtcNow,
             UserId = dto.UserId
         };
 
@@ -91,6 +92,10 @@ public class TaskService: ITaskService
         existingTask.Title = dto.Title;
         existingTask.Description = dto.Description;
         existingTask.DueAt = dto.DueAt;
+        if (existingTask.Status != dto.Status)
+        {
+            existingTask.StatusChangedAt = DateTime.UtcNow;
+        }
         existingTask.Status = dto.Status;
         existingTask.Priority = dto.Priority;
 

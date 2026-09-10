@@ -41,6 +41,7 @@
                 <span class="badge badge-{{ taskList.priorityClasses[task.priority] }}">{{ taskList.priorityLabels[task.priority] }}</span>
                 <span>Due {{ task.dueAt | date:'shortDate' }}</span>
             </div>
+            <div class="task-card-status-time">{{ taskList.timeInStatus(task.statusChangedAt) }}</div>
             <div class="task-card-owner" ng-if="taskList.isAdmin && !taskList.viewingUserId">Owner: {{ taskList.userMap[task.userId] || 'Unknown' }}</div>
             <div class="task-card-actions">
                 <a class="btn btn-small btn-icon" ng-if="!taskList.isAdmin" href="#/tasks/{{ task.id }}/edit" title="Edit" aria-label="Edit">

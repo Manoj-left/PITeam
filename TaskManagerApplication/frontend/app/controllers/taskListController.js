@@ -1,7 +1,8 @@
-taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService', 'authService', 'userService', '$location', function (taskService, taskHubService, authService, userService, $location) {
+taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService', 'authService', 'userService', '$location', '$interval', '$scope', function (taskService, taskHubService, authService, userService, $location, $interval, $scope) {
     var taskList = this;
     taskList.tasks = [];
     taskList.errorMessage = '';
+    taskList.now = Date.now();
     taskList.currentUser = authService.getCurrentUser();
     taskList.isAdmin = authService.isAdmin(taskList.currentUser);
     taskList.userMap = {}; // userId -> username, admin-only, used to show each task's owner
@@ -29,6 +30,33 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
     taskList.sort = {
         SortBy: ''
     };
+
+    taskList.timeInStatus = function (statusChangedAt) {
+        if (!statusChangedAt) {
+            return 'Status time unavailable';
+        }
+
+        var elapsedMinutes = Math.max(0, Math.floor((taskList.now - new Date(statusChangedAt).getTime()) / 60000));
+        var days = Math.floor(elapsedMinutes / 1440);
+        var hours = Math.floor((elapsedMinutes % 1440) / 60);
+        var minutes = elapsedMinutes % 60;
+
+        if (days > 0) {
+            return 'In status for ' + days + 'd ' + hours + 'h';
+        }
+        if (hours > 0) {
+            return 'In status for ' + hours + 'h ' + minutes + 'm';
+        }
+        return 'In status for ' + minutes + 'm';
+    };
+
+    var statusClock = $interval(function () {
+        taskList.now = Date.now();
+    }, 60000);
+
+    $scope.$on('$destroy', function () {
+        $interval.cancel(statusClock);
+    });
 
     taskList.applyFilters = function () {
         var params = {};

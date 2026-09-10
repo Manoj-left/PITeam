@@ -10,4 +10,6 @@ public class TaskItem
     public TaskStatusType Status {get; set;}
     public Priority Priority {get; set;}
     public int UserId {get; set;}
+    // set on create and every time Status changes; drives the "time in status" badge
+    public DateTime? StatusChangedAt {get; set;}
 }
