@@ -13,6 +13,7 @@
             <tr>
                 <th>Username</th>
                 <th>Role</th>
+                <th>Tasks</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
             <tr ng-repeat="user in userList.users">
                 <td>{{ user.username }}</td>
                 <td>{{ userList.roleLabels[user.role] }}</td>
+                <td>{{ user.taskCount }}</td>
                 <td>
                     <div class="table-actions">
                         <a class="btn btn-small" href="#/tasks?userId={{ user.id }}">View Tasks</a>

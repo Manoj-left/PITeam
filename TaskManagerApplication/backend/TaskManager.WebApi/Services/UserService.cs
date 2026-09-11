@@ -6,10 +6,12 @@ using TaskManager.WebApi.Repository;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ITaskRepository _taskRepository;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, ITaskRepository taskRepository)
     {
         _userRepository = userRepository;
+        _taskRepository = taskRepository;
     }
 
     public async Task<IEnumerable<UserDto>> SearchUsersAsync(string? search)
@@ -24,11 +26,15 @@ public class UserService : IUserService
             users = users.Where(u => u.Username.Contains(search, StringComparison.OrdinalIgnoreCase));
         }
 
+        var tasks = await _taskRepository.GetAllAsync();
+        var taskCountsByUserId = tasks.GroupBy(t => t.UserId).ToDictionary(g => g.Key, g => g.Count());
+
         return users.Select(u => new UserDto
         {
             Id = u.Id,
             Username = u.Username,
-            Role = u.Role
+            Role = u.Role,
+            TaskCount = taskCountsByUserId.TryGetValue(u.Id, out var count) ? count : 0
         });
     }
 
