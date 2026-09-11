@@ -27,37 +27,18 @@
     <script src="app/controllers/userListController.js"></script>
     <script src="app/controllers/navController.js"></script>
 </head>
-<body ng-app="taskManagerApp">
-    <div class="app-shell" ng-controller="NavController as nav">
-        <header class="topbar">
-            <a class="topbar-brand" href="#/tasks">
-                <svg class="topbar-brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                <span> Task Manager</span>
-            </a>
-            <div class="topbar-right">
-                <span class="topbar-user" ng-if="nav.currentUser">Hello, {{ nav.currentUser.username }}</span>
-                <button class="btn btn-small btn-ghost" ng-if="nav.currentUser" ng-click="nav.logout()">Logout</button>
-            </div>
-        </header>
-        <div class="app-body">
-            <aside class="sidebar" ng-if="nav.currentUser">
-                <a class="sidebar-link" href="#/tasks" ng-class="{ 'sidebar-link-active': nav.isActive('/tasks') }">
-                    <svg class="sidebar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h18v2H3v-2z"/></svg>
-                    <span>Tasks</span>
-                </a>
-                <a class="sidebar-link" href="#/tasks/new" ng-if="!nav.isAdmin" ng-class="{ 'sidebar-link-active': nav.isActive('/tasks/new') }">
-                    <svg class="sidebar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                    <span>New Task</span>
-                </a>
-                <a class="sidebar-link" href="#/admin/users" ng-if="nav.isAdmin" ng-class="{ 'sidebar-link-active': nav.isActive('/admin/users') }">
-                    <svg class="sidebar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05C16.19 13.99 17 15.19 17 16.5V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                    <span>Users</span>
-                </a>
-            </aside>
-            <main class="app-main" ng-class="{ 'app-main-no-sidebar': !nav.currentUser }">
-                <div ng-view></div>
-            </main>
+<body class="app-shell" ng-app="taskManagerApp" ng-controller="NavController as nav">
+    <div ng-include="'app/views/topbar.html'"></div>
+
+    <div class="app-body">
+        <div ng-if="nav.currentUser"
+             ng-include="'app/views/sidebar.html'">
         </div>
+
+        <main class="app-main"
+              ng-class="{ 'app-main-no-sidebar': !nav.currentUser }"
+              ng-view>
+        </main>
     </div>
 </body>
 </html>

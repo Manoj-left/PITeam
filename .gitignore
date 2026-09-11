@@ -16,3 +16,6 @@ npm-debug.log*
 # OS files
 Thumbs.db
 .DS_Store
+
+# Playwright MCP debug artifacts
+.playwright-mcp/

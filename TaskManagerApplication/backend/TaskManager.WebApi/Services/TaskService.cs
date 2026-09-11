@@ -71,7 +71,7 @@ public class TaskService: ITaskService
             DueAt = dto.DueAt,
             Priority = dto.Priority,
             Status = TaskStatusType.NotStarted,
-            CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow),
+            CreatedAt = DateTime.UtcNow,
             StatusChangedAt = DateTime.UtcNow,
             UserId = dto.UserId
         };
@@ -98,6 +98,7 @@ public class TaskService: ITaskService
         }
         existingTask.Status = dto.Status;
         existingTask.Priority = dto.Priority;
+        existingTask.UpdatedAt = DateTime.UtcNow;
 
         await _taskRepository.UpdateAsync(existingTask);
         await _taskNotifier.TaskUpdatedAsync(existingTask);

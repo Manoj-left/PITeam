@@ -36,11 +36,16 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
             return 'Status time unavailable';
         }
 
-        var elapsedMinutes = Math.max(0, Math.floor((taskList.now - new Date(statusChangedAt).getTime()) / 60000));
+        var hasTimezone = /(?:Z|[+-]\d{2}:\d{2})$/i.test(statusChangedAt);
+        var timestamp = new Date(hasTimezone ? statusChangedAt : statusChangedAt + 'Z').getTime();
+        var elapsedMinutes = Math.max(0, Math.floor((taskList.now - timestamp) / 60000));
         var days = Math.floor(elapsedMinutes / 1440);
         var hours = Math.floor((elapsedMinutes % 1440) / 60);
         var minutes = elapsedMinutes % 60;
 
+        if (elapsedMinutes === 0) {
+            return 'Status changed just now';
+        }
         if (days > 0) {
             return 'In status for ' + days + 'd ' + hours + 'h';
         }
