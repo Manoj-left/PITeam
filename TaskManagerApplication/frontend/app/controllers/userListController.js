@@ -1,4 +1,4 @@
-taskManagerApp.controller('UserListController', ['userService', function (userService) {
+taskManagerApp.controller('UserListController', ['userService', 'taskHubService', function (userService, taskHubService) {
     var userList = this;
     userList.search = '';
     userList.users = [];
@@ -24,4 +24,9 @@ taskManagerApp.controller('UserListController', ['userService', function (userSe
             userList.errorMessage = 'Error deleting user: ' + error.status;
         });
     };
+
+    // keep each user's task count live as tasks are created/edited/deleted elsewhere
+    taskHubService.on('TaskCreated', userList.runSearch);
+    taskHubService.on('TaskUpdated', userList.runSearch);
+    taskHubService.on('TaskDeleted', userList.runSearch);
 }]);

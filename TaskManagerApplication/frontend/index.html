@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager Application</title>
+    <!-- style sheets used are linked here -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/buttons.css">
@@ -11,15 +12,26 @@
     <link rel="stylesheet" href="css/alerts.css">
     <link rel="stylesheet" href="css/tasks.css">
     <link rel="stylesheet" href="css/tables.css">
+    <!-- this module allows us to make use of modules, controllers, directives ($scope,ng-if,ng-repeat etc) provided by Angularjs-->
     <script src="node_modules/angular/angular.min.js"></script>
+    <!-- it is a separate add-on module (not bundled in angular core(others like animation can also be added seperately)) that gives $routeProvider/$route/ngView, used to build the SPA routing seen in app.routes.js -->
     <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <!-- added this signalR, it is a library for real-time updates(opens a persistent WebSocket connection to the backend TaskHub so the UI can receive push notifications instead of polling) -->
     <script src="node_modules/@microsoft/signalr/dist/browser/signalr.min.js"></script>
-    <script src="app/app.js"></script>
-    <script src="app/config.js"></script>
+    
+    <!-- these 4 are theapp bootstrap files: modules need to be there beofre other js scripts -->
+    <script src="app/app.module.js"></script>
+    <script src="app/app.routes.js"></script>
+    <script src="app/app.run.js"></script>
+    <script src="app/app.constants.js"></script>
+
+    <!-- these are singleton objects that talk with the backend APi's -->
     <script src="app/services/taskService.js"></script>
     <script src="app/services/taskHubService.js"></script>
     <script src="app/services/authService.js"></script>
     <script src="app/services/userService.js"></script>
+
+<!-- these are contollers and they bind services or $scope data to view and are generally dicalred via templateurl in the routes file -->
     <script src="app/controllers/taskListController.js"></script>
     <script src="app/controllers/taskFormController.js"></script>
     <script src="app/controllers/loginController.js"></script>
@@ -27,14 +39,19 @@
     <script src="app/controllers/userListController.js"></script>
     <script src="app/controllers/navController.js"></script>
 </head>
+<!-- initialize the angualr app using ng-app directive and scope it to whole body so that AngularJS can manage the entire page -->
+ <!-- also the nav.* is available in every child view(in the body), not just one route eg: nav.currentUser visible for both sidebar and top bar and based on who logged in we can show/hide certain elements -->
 <body class="app-shell" ng-app="taskManagerApp" ng-controller="NavController as nav">
     <div ng-include="'app/views/topbar.html'"></div>
 
     <div class="app-body">
+        <!-- render only if logged in -->
         <div ng-if="nav.currentUser"
              ng-include="'app/views/sidebar.html'">
         </div>
 
+        <!--ng-view is the placeholder ngRoute injects whatever templateUrl matches the current path from app.routes.js -->
+         <!-- ng-class for just layout purposes when not logged in -->
         <main class="app-main"
               ng-class="{ 'app-main-no-sidebar': !nav.currentUser }"
               ng-view>
