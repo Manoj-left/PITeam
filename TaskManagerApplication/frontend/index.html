@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/alerts.css">
     <link rel="stylesheet" href="css/tasks.css">
     <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <!-- this module allows us to make use of modules, controllers, directives ($scope,ng-if,ng-repeat etc) provided by Angularjs-->
     <script src="node_modules/angular/angular.min.js"></script>
     <!-- it is a separate add-on module (not bundled in angular core(others like animation can also be added seperately)) that gives $routeProvider/$route/ngView, used to build the SPA routing seen in app.routes.js -->
@@ -30,6 +31,7 @@
     <script src="app/services/taskHubService.js"></script>
     <script src="app/services/authService.js"></script>
     <script src="app/services/userService.js"></script>
+    <script src="app/services/dashboardService.js"></script>
 
 <!-- these are contollers and they bind services or $scope data to view and are generally dicalred via templateurl in the routes file -->
     <script src="app/controllers/taskListController.js"></script>
@@ -37,6 +39,7 @@
     <script src="app/controllers/loginController.js"></script>
     <script src="app/controllers/registerController.js"></script>
     <script src="app/controllers/userListController.js"></script>
+    <script src="app/controllers/dashboardController.js"></script>
     <script src="app/controllers/navController.js"></script>
 </head>
 <!-- initialize the angualr app using ng-app directive and scope it to whole body so that AngularJS can manage the entire page -->

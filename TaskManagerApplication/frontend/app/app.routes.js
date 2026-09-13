@@ -13,6 +13,12 @@ taskManagerApp.config(['$routeProvider', '$locationProvider', function ($routePr
             controller: 'RegisterController',
             controllerAs: 'register'
         })
+        .when('/dashboard', {
+            templateUrl: 'app/views/dashboard.html',
+            controller: 'DashboardController',
+            controllerAs: 'dashboard',
+            requiresAuth: true
+        })
         .when('/tasks', {
             templateUrl: 'app/views/taskList.html',
             controller: 'TaskListController',

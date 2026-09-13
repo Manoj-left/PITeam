@@ -6,7 +6,7 @@ taskManagerApp.controller('LoginController', ['$location', 'authService', functi
     login.submit = function () {
         authService.login(login.credentials.username, login.credentials.password).then(function (response) {
             authService.setCurrentUser(response.data);
-            $location.path(authService.isAdmin(response.data) ? '/admin/users' : '/tasks');
+            $location.path('/dashboard');
         }).catch(function (error) {
             login.errorMessage = error.status === 401 ? 'Invalid username or password.' : 'Error logging in: ' + error.status;
         });

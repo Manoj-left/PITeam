@@ -1,17 +1,20 @@
 namespace TaskManager.WebApi.Services;
 
 using Microsoft.AspNetCore.Identity;
+using TaskManager.WebApi.Hubs;
 using TaskManager.WebApi.Models;
 using TaskManager.WebApi.Repository;
 
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ITaskNotifier _taskNotifier;
     private readonly PasswordHasher<User> _passwordHasher = new();
 
-    public AuthService(IUserRepository userRepository)
+    public AuthService(IUserRepository userRepository, ITaskNotifier taskNotifier)
     {
         _userRepository = userRepository;
+        _taskNotifier = taskNotifier;
     }
 
     public async Task<UserDto?> RegisterAsync(RegisterDto dto)
@@ -30,7 +33,9 @@ public class AuthService : IAuthService
         user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
 
         await _userRepository.AddAsync(user);
-        return ToDto(user);
+        var userDto = ToDto(user);
+        await _taskNotifier.UserRegisteredAsync(userDto);
+        return userDto;
     }
 
     public async Task<UserDto?> LoginAsync(LoginDto dto)

@@ -1,4 +1,8 @@
 <aside class="sidebar">
+    <a class="sidebar-link" href="#/dashboard" ng-class="{ 'sidebar-link-active': nav.isActive('/dashboard') }">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path></svg>
+        <span>Dashboard</span>
+    </a>
     <a class="sidebar-link" href="#/tasks" ng-class="{ 'sidebar-link-active': nav.isActive('/tasks') }">
         <svg class="sidebar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h18v2H3v-2z"></path></svg>
         <span>Tasks</span>

@@ -9,14 +9,20 @@
         </label>
         <label class="filter-bar-label">Status
             <select class="filter-bar-select" ng-model="taskList.filters.status" ng-change="taskList.applyFilters()">
-                <option value="">All</option>
+                <option value="">All Tasks</option>
                 <option ng-repeat="s in taskList.statusOptions" value="{{ s }}">{{ s }}</option>
             </select>
         </label>
         <label class="filter-bar-label">Priority
             <select class="filter-bar-select" ng-model="taskList.filters.priority" ng-change="taskList.applyFilters()">
-                <option value="">All</option>
+                <option value="">All Tasks</option>
                 <option ng-repeat="p in taskList.priorityOptions" value="{{ p }}">{{ p }}</option>
+            </select>
+        </label>
+        <label class="filter-bar-label">Overdue
+            <select class="filter-bar-select" ng-model="taskList.filters.overdue" ng-change="taskList.applyFilters()">
+                <option value="">All Tasks</option>
+                <option value="overdue">Overdue Only</option>
             </select>
         </label>
         <label class="filter-bar-label filter-bar-label-right">Sort by
@@ -40,8 +46,9 @@
             <div class="task-card-meta">
                 <span class="badge badge-{{ taskList.priorityClasses[task.priority] }}">{{ taskList.priorityLabels[task.priority] }}</span>
                 <span>Due {{ task.dueAt | date:'shortDate' }}</span>
+                <span class="badge badge-overdue" ng-if="taskList.isOverdue(task)">Overdue</span>
             </div>
-            <div class="task-card-status-time">{{ taskList.timeInStatus(task.statusChangedAt) }}</div>
+            <div class="task-card-status-time" ng-if="task.status !== 2">{{ taskList.timeInStatus(task.statusChangedAt) }}</div>
             <div class="task-card-owner" ng-if="taskList.isAdmin && !taskList.viewingUserId">Owner: {{ taskList.userMap[task.userId] || 'Unknown' }}</div>
             <div class="task-card-actions">
                 <a class="btn btn-small btn-icon" ng-if="!taskList.isAdmin" href="#/tasks/{{ task.id }}/edit" title="Edit" aria-label="Edit">

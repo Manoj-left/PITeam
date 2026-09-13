@@ -1,5 +1,6 @@
 namespace TaskManager.WebApi.Services;
 
+using TaskManager.WebApi.Hubs;
 using TaskManager.WebApi.Models;
 using TaskManager.WebApi.Repository;
 
@@ -7,11 +8,13 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly ITaskRepository _taskRepository;
+    private readonly ITaskNotifier _taskNotifier;
 
-    public UserService(IUserRepository userRepository, ITaskRepository taskRepository)
+    public UserService(IUserRepository userRepository, ITaskRepository taskRepository, ITaskNotifier taskNotifier)
     {
         _userRepository = userRepository;
         _taskRepository = taskRepository;
+        _taskNotifier = taskNotifier;
     }
 
     public async Task<IEnumerable<UserDto>> SearchUsersAsync(string? search)
@@ -40,6 +43,11 @@ public class UserService : IUserService
 
     public async Task<bool> DeleteUserAsync(int id)
     {
-        return await _userRepository.DeleteAsync(id);
+        var deleted = await _userRepository.DeleteAsync(id);
+        if (deleted)
+        {
+            await _taskNotifier.UserDeletedAsync(id);
+        }
+        return deleted;
     }
 }

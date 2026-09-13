@@ -32,3 +32,5 @@
 .badge-status-in-progress { background: var(--color-status-in-progress); color: #ffffff; }
 .badge-status-completed { background: var(--color-status-completed); color: #ffffff; }
 .badge-status-on-hold { background: var(--color-status-on-hold); }
+
+.badge-overdue { background: var(--color-danger); color: #ffffff; }

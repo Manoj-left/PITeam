@@ -7,6 +7,7 @@ public class TaskQueryParameter
     public string? Search { get; set; }
     public string? SortBy { get; set; }
     public bool? IsAscending { get; set; }
+    public bool? IsOverdue { get; set; }
     // omitted by admin searches to see every user's tasks; a regular user's client always supplies its own id
     public int? UserId { get; set; }
 }

@@ -41,6 +41,12 @@ public class TaskService: ITaskService
                 (t.Description != null && t.Description.Contains(search, StringComparison.OrdinalIgnoreCase)));
         }
 
+        if (queryParameter.IsOverdue == true)
+        {
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            tasks = tasks.Where(t => t.DueAt < today && t.Status != TaskStatusType.Completed);
+        }
+
         tasks = queryParameter.SortBy?.ToLowerInvariant() switch
         {
             // ties broken by due date (soonest first) so same-priority tasks still have a meaningful order

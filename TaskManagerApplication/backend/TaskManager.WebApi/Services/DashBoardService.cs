@@ -24,7 +24,7 @@ public class DashBoardService : IDashboardService
 
         var statusCounts = tasks
             .GroupBy(t => t.Status)
-            .ToDictionary(g => g.Key, g => g.Count());
+            .ToDictionary(g => (int)g.Key, g => g.Count());
 
         var stats = new DashBoardStatsDto
         {

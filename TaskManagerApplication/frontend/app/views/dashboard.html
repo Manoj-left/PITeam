@@ -1,0 +1,31 @@
+<div class="page">
+    <div class="page-header">
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="alert alert-danger" ng-if="dashboard.errorMessage">{{ dashboard.errorMessage }}</div>
+
+    <div class="kpi-grid" ng-if="dashboard.stats">
+        <div class="kpi-card" ng-if="dashboard.isAdmin">
+            <svg class="kpi-card-icon kpi-card-icon-primary" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05C16.19 13.99 17 15.19 17 16.5V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>
+            <div class="kpi-card-value">{{ dashboard.stats.totalUsers }}</div>
+            <div class="kpi-card-label">Total Users</div>
+        </div>
+        <div class="kpi-card">
+            <svg class="kpi-card-icon kpi-card-icon-primary" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h18v2H3v-2z"></path></svg>
+            <div class="kpi-card-value">{{ dashboard.stats.taskStats.totalTasks }}</div>
+            <div class="kpi-card-label">Total Tasks</div>
+        </div>
+    </div>
+
+    <div class="dashboard-chart" ng-if="dashboard.stats && dashboard.stats.taskStats.totalTasks">
+        <div class="donut-chart" ng-style="{ background: dashboard.donutGradient }"></div>
+        <div class="donut-legend">
+            <div class="donut-legend-item" ng-repeat="status in dashboard.statusBreakdown">
+                <span class="donut-legend-swatch" ng-class="status.cssClass"></span>
+                <span>{{ status.label }} — {{ status.count }} ({{ status.percentage }}%)</span>
+            </div>
+        </div>
+    </div>
+</div>
+<body></body>

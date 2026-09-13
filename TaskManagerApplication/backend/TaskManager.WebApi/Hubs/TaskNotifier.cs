@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
+using TaskManager.WebApi.Dto;
 using TaskManager.WebApi.Models;
 
 namespace TaskManager.WebApi.Hubs;
@@ -20,4 +21,10 @@ public class TaskNotifier : ITaskNotifier
 
     public Task TaskDeletedAsync(int id) =>
         _hubContext.Clients.All.SendAsync("TaskDeleted", id);
+
+    public Task UserRegisteredAsync(UserDto user) =>
+        _hubContext.Clients.All.SendAsync("UserRegistered", user);
+
+    public Task UserDeletedAsync(int id) =>
+        _hubContext.Clients.All.SendAsync("UserDeleted", id);
 }

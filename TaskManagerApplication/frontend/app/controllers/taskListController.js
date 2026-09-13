@@ -24,7 +24,8 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
     taskList.filters = {
         status: '',
         priority: '',
-        search: ''
+        search: '',
+        overdue: ''
     };
 
     taskList.sort = {
@@ -63,6 +64,17 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
         $interval.cancel(statusClock);
     });
 
+    // dueAt is a plain "yyyy-MM-dd" DateOnly string with no time-of-day, so compare against local midnight today
+    taskList.isOverdue = function (task) {
+        if (!task.dueAt || task.status === 2) {
+            return false;
+        }
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var dueDate = new Date(task.dueAt);
+        return dueDate.getTime() < today.getTime();
+    };
+
     taskList.applyFilters = function () {
         var params = {};
         // a regular user only ever sees their own tasks; an admin sees everyone's unless drilled into one user
@@ -79,6 +91,9 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
         }
         if (taskList.filters.search) {
             params.search = taskList.filters.search;
+        }
+        if (taskList.filters.overdue === 'overdue') {
+            params.isOverdue = true;
         }
         if (taskList.sort.SortBy) {
             params.sortBy = taskList.sort.SortBy;
