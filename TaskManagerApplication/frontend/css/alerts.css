@@ -3,16 +3,20 @@
     padding: 10px 14px;
     border-radius: var(--radius);
     margin-bottom: 16px;
+    text-align: center;
 }
 
 .alert-error {
     background: #fde8e6;
     color: var(--color-danger-dark);
+    text-transform:uppercase;
 }
 
 .alert-info {
-    background: #eef0fd;
-    color: var(--color-primary-dark);
+    background: #fafbff;
+    color: rgb(255, 0, 0);
+    font-size: larger;
+    text-transform:uppercase;
 }
 
 .badge {

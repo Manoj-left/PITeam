@@ -16,9 +16,9 @@
 }
 
 .table th {
-    background: var(--color-bg);
+    background: #6897fd;
     font-size: 13px;
-    color: var(--color-text-muted);
+    color: #ffffff;
     text-transform: uppercase;
 }
 

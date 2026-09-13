@@ -1,4 +1,7 @@
 <div class="page">
+    <div class="page-header">
+        <h1>Users</h1>
+    </div>
     
     <div class="filter-bar">
         <label class="filter-bar-label">Search
@@ -33,5 +36,6 @@
             </tr>
         </tbody>
     </table>
+    <p class="alert alert-info" ng-if="!userList.errorMessage && userList.users.length === 0">No users to display</p>
 </div>
 <body></body>

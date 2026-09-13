@@ -1,6 +1,6 @@
 <div class="page">
     <div class="page-header">
-        <h2>Tasks</h2>
+        <h1>Tasks</h1>
     </div>
 
     <div class="filter-bar">
@@ -60,5 +60,6 @@
             </div>
         </div>
     </div>
+    <p class="alert alert-info" ng-if="!taskList.errorMessage && taskList.tasks.length === 0">No tasks to display</p>
 </div>
 <body></body>

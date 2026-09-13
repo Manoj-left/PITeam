@@ -6,23 +6,25 @@
 
         <form ng-submit="taskForm.save()">
             <label class="form-group">Title
-                <input class="form-input" type="text" ng-model="taskForm.task.title" required>
+                <input class="form-input" type="text" placeholder="Enter title" ng-model="taskForm.task.title" required>
             </label>
             <label class="form-group">Description
-                <textarea class="form-textarea" ng-model="taskForm.task.description"></textarea>
+                <textarea class="form-textarea" placeholder="Enter description" ng-model="taskForm.task.description"></textarea>
             </label>
             <label class="form-group">Due Date
                 <input class="form-input" type="date" ng-model="taskForm.task.dueAt" ng-model-options="{timezone: 'utc'}" required>
             </label>
             <label class="form-group">Priority
-                <select class="form-select" ng-model="taskForm.task.priority">
+                <select class="form-select" ng-model="taskForm.task.priority" required>
+                    <option value="" disabled>Select priority</option>
                     <option ng-value="0">Low</option>
                     <option ng-value="1">Medium</option>
                     <option ng-value="2">High</option>
                 </select>
             </label>
             <label class="form-group" ng-if="taskForm.isEditMode">Status
-                <select class="form-select" ng-model="taskForm.task.status">
+                <select class="form-select" ng-model="taskForm.task.status" required>
+                    <option value="" disabled>Select status</option>
                     <option ng-value="0">Not Started</option>
                     <option ng-value="1">In Progress</option>
                     <option ng-value="2">Completed</option>
