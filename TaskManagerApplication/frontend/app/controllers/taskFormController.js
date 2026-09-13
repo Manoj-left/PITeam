@@ -9,17 +9,25 @@ taskManagerApp.controller('TaskFormController', ['$routeParams','$location','tas
     if(taskForm.isEditMode){
         taskService.getById($routeParams.id).then(function(response){
             taskForm.task = response.data;
-            taskForm.task.dueAt = new Date(taskForm.task.dueAt); // date input requires a Date object, not a string
+            taskForm.task.dueAt = parseDateOnlyToLocalDate(taskForm.task.dueAt); // date input requires a Date object, not a string
         }).catch(function(error){
             taskForm.errorMessage = 'Error fetching task: ' + error.status;
         });
     }
 
-    // the backend expects a plain "yyyy-MM-dd" string (DateOnly), not the full ISO timestamp a JS Date serializes to
+    // `new Date("yyyy-MM-dd")` is parsed as UTC midnight per the JS spec, which would silently
+    // shift the calendar day once converted to local time - build a local-midnight Date directly instead.
+    function parseDateOnlyToLocalDate(dateOnlyString) {
+        var parts = dateOnlyString.split('-');
+        return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+    }
+
+    // the backend expects a plain "yyyy-MM-dd" string, not the full ISO timestamp a JS Date serializes to
+    // uses local getters (not UTC) since the Date is always local midnight (from the date picker or parseDateOnlyToLocalDate above)
     function toDateOnlyString(date) {
-        var year = date.getUTCFullYear();
-        var month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
-        var day = ('0' + date.getUTCDate()).slice(-2);
+        var year = date.getFullYear();
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var day = ('0' + date.getDate()).slice(-2);
         return year + '-' + month + '-' + day;
     }
 
