@@ -1,6 +1,7 @@
 taskManagerApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     // '/login' instead of the default '#!/login'; works with any static file server, no SPA-fallback needed
     $locationProvider.hashPrefix('');
+    // $routeProvider.when(path, routeDefinition)
     $routeProvider
         .when('/login', {
             templateUrl: 'app/views/login.html',
@@ -24,6 +25,7 @@ taskManagerApp.config(['$routeProvider', '$locationProvider', function ($routePr
             controllerAs: 'taskForm',
             requiresAuth: true
         })
+        // we have a route parameter named id here and is accessible in TaskFormController.js
         .when('/tasks/:id/edit', {
             templateUrl: 'app/views/taskForm.html',
             controller: 'TaskFormController',

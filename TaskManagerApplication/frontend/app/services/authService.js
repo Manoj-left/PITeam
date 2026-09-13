@@ -1,4 +1,4 @@
-// keeps the logged-in user in the browser's storage; no server session/token yet (that's a later phase)
+// keeps the logged-in user in the browser's storage; no server session/token yet 
 // sessionStorage (not localStorage) is scoped per browser tab, so logging in as different users in
 // different tabs doesn't overwrite each other's session when one of the tabs refreshes
 taskManagerApp.factory('authService', ['$http', '$window', 'API_BASE_URL', function ($http, $window, API_BASE_URL) {
@@ -19,7 +19,7 @@ taskManagerApp.factory('authService', ['$http', '$window', 'API_BASE_URL', funct
             var stored = $window.sessionStorage.getItem(storageKey);
             return stored ? angular.fromJson(stored) : null;
         },
-        // Role is serialized as its backend enum int (0 = User, 1 = Admin), matching how Status/Priority are handled elsewhere
+        // Role is serialized as its backend enum int (0 = User, 1 = Admin).
         isAdmin: function (user) {
             return !!user && user.role === 1;
         },

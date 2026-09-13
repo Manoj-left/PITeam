@@ -13,7 +13,7 @@ taskManagerApp.run(['$rootScope', '$location', 'authService', function ($rootSco
         }
 
         if (next.requiresAdmin && !authService.isAdmin(currentUser)) {
-            $location.path('#/tasks');
+            $location.path('/tasks');
         }
     });
 }]);

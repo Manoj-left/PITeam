@@ -117,7 +117,7 @@ taskManagerApp.controller('TaskListController', ['taskService', 'taskHubService'
     });
 };
 
-    // live updates: any other tab creating/editing/deleting a task refreshes this list too
+    // live updates- any other tab creating/editing/deleting a task refreshes this list too
     taskHubService.on('TaskCreated', taskList.applyFilters);
     taskHubService.on('TaskUpdated', taskList.applyFilters);
     taskHubService.on('TaskDeleted', taskList.applyFilters);
